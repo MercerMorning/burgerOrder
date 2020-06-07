@@ -31,7 +31,9 @@ class OrderListTest extends TestCase
         $statement = $pdo->prepare($sql);
         $statement->execute();
         $currentID = $statement->fetch();
-        $this->assertEquals(["result" => ["id" => $currentID[0], "email" => self::NEW_EMAIL, "order_count" => 1]], main(self::NEW_EMAIL));
+        $comparedArray = main(self::NEW_EMAIL);
+        $comparedArray = $comparedArray["result"][0];
+        $this->assertEquals(["id" => $currentID[0], "email" => self::NEW_EMAIL, "order_count" => 1], $comparedArray);
     }
 
     /**
@@ -44,7 +46,9 @@ class OrderListTest extends TestCase
         $statement = $pdo->prepare($sql);
         $statement->execute();
         $currentNumOfOrder = $statement->fetch();
-        $this->assertEquals(["result" => ["id" => 1, "email" => "hugopochta@gmail.com", "order_count" => $currentNumOfOrder[0]]], main("hugopochta@gmail.com"));
+        $comparedArray = main("hugopochta@gmail.com");
+        $comparedArray = $comparedArray["result"][0];
+        $this->assertEquals(["id" => 1, "email" => "hugopochta@gmail.com", "order_count" => $currentNumOfOrder[0]], $comparedArray);
     }
 
     /**

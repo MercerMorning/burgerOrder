@@ -2,11 +2,13 @@
 if (!empty($_POST)) {
     include_once __DIR__ . "/../src/config.php";
     include_once __DIR__ . "/../src/pdo.php";
-    $result = main($_POST["params"]["email"]);
+    $controller = new \App\Burger();
+    $result = $controller->main($_POST["params"]["email"]);
+    header('Content-Type: application/json');
     if ($result["errors"]) {
-        echo "Некорректный email";
+        echo json_encode(["jsonrpc" => "2.0", "errors" => $result["errors"], "id" => $_POST["id"]]);
     } else {
-        echo "Ваш заказ оформелн";
+        echo json_encode(["jsonrpc" => "2.0", "result" => $result["result"], "id" => $_POST["id"]]);
     }
     exit();
 }
