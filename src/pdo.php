@@ -67,7 +67,7 @@ class Burger
     }
 
     /**
-     * Добавление новго заказа в базу
+     * Добавление нового заказа в базу
      * @param $userId
      */
     protected function addOrder($userId)
